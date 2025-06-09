@@ -8,9 +8,19 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
-            Console.WriteLine("Enter Number of Tasks:");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("\t\t\t\t\t*****************************************");
+            Console.WriteLine("\t\t\t\t\t*                                       *");
+            Console.WriteLine("\t\t\t\t\t*  📖✨Hello! Organize your tasks ✨📖   *");
+            Console.WriteLine("\t\t\t\t\t*                                       *");
+            Console.WriteLine("\t\t\t\t\t*****************************************");
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("\t\t\t\t\t\tWelcome to the Task Manager!");
+            Console.ResetColor();
+            Console.WriteLine("Please enter the number of tasks you want to manage.");
+            Console.Write("Number of tasks: ");
             int Num = int.Parse(Console.ReadLine());
-
+            Console.ResetColor();
             Console.WriteLine("Enter Your Tasks:");
             for (int i = 0; i < Num; i++)
             {
@@ -63,9 +73,11 @@ namespace ConsoleApp1
                         if (TaskNum < 1 || TaskNum > Tasks.Count)
                         {
                             Console.WriteLine("Invalid task number.");
-                            break;
+                            Console.ReadKey();
+                            Console.Clear();
+                            goto Mainmenu;
                         }
-
+                    UpdateTaske:
                         Console.WriteLine("\nChoose new state for the task:");
                         Console.WriteLine("1. ✅ Done");
                         Console.WriteLine("2. ⏳ In Progress");
@@ -103,12 +115,9 @@ namespace ConsoleApp1
 
                         Console.WriteLine("✅ Task updated successfully.");
                         Console.ReadKey();
+                        Console.Clear();
                         goto Mainmenu;
                     }
-
-
-                    break;
-
                 case 3:
                 addOrRemove:
                     Console.Clear();
@@ -122,6 +131,7 @@ namespace ConsoleApp1
                         string newTask = Console.ReadLine();
                         Tasks.Add(newTask);
                         Console.WriteLine("Task added successfully!");
+                        Console.Clear();
                         goto Mainmenu;
                     }
                     else if (addOrRemove == 2)
