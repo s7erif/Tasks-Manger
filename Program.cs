@@ -37,7 +37,6 @@ namespace ConsoleApp1
                         Console.WriteLine($"{i + 1}: {Tasks[i]}");
                     }
                     break;
-
                 case 2:
                     Console.WriteLine("\nEnter the task number to update:");
                     int updateIndex = int.Parse(Console.ReadLine()) - 1;

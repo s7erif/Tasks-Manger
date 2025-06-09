@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\loq\\Desktop\\Taskes\\Taskes.csproj": {}
+    "C:\\Users\\loq\\Desktop\\Tasks-Manger\\Taskes.csproj": {}
   },
   "projects": {
-    "C:\\Users\\loq\\Desktop\\Taskes\\Taskes.csproj": {
+    "C:\\Users\\loq\\Desktop\\Tasks-Manger\\Taskes.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\loq\\Desktop\\Taskes\\Taskes.csproj",
+        "projectUniqueName": "C:\\Users\\loq\\Desktop\\Tasks-Manger\\Taskes.csproj",
         "projectName": "Taskes",
-        "projectPath": "C:\\Users\\loq\\Desktop\\Taskes\\Taskes.csproj",
+        "projectPath": "C:\\Users\\loq\\Desktop\\Tasks-Manger\\Taskes.csproj",
         "packagesPath": "C:\\Users\\loq\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\loq\\Desktop\\Taskes\\obj\\",
+        "outputPath": "C:\\Users\\loq\\Desktop\\Tasks-Manger\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
