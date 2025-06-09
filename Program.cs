@@ -21,7 +21,10 @@ namespace ConsoleApp1
 
             switch (choice)
             {
+                case 1:
+                    {
         //show Method 
+                    }
                     break;
                 case 2:
 
