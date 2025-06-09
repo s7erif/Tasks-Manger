@@ -5,6 +5,123 @@ namespace ConsoleApp1
 {
     internal class Program
     {
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        static void PrintHeader(string title)
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("\n" + new string('═', 50));
+            Console.WriteLine($"🧠 {title}");
+            Console.WriteLine(new string('═', 50));
+            Console.ResetColor();
+        }
+        //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        static void ShowTasks()
+        {
+            Console.Clear();
+            PrintHeader("Your Tasks");
+
+            if (Tasks.Count == 0)
+            {
+            }
+
+            for (int i = 0; i < Tasks.Count; i++)
+            {
+                string[] parts = Tasks[i].Split('-');
+                string title = parts[0].Trim();
+                string status = parts.Length > 1 ? parts[1].Trim() : "❌ Not Started";
+                string percentText = parts.Length > 2 ? parts[2].Trim().Replace("%", "") : "0";
+                int percent = int.TryParse(percentText, out int p) ? p : 0;
+
+                int filled = percent / 10;
+                string bar = new string('▓', filled) + new string('░', 10 - filled);
+
+                if (status.Contains("✅")) Console.ForegroundColor = ConsoleColor.Green;
+                else if (status.Contains("⏳")) Console.ForegroundColor = ConsoleColor.Yellow;
+                else Console.ForegroundColor = ConsoleColor.Red;
+
+                Console.WriteLine($"📌 {i + 1}. {title}");
+                Console.WriteLine($"    ├─ Status  : {status}");
+                Console.WriteLine($"    └─ Progress: [{bar}] {percent}%\n");
+
+                Console.ResetColor();
+            }
+
+            Console.WriteLine("Press any key to return to main menu...");
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+
+
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        static void UpdateTask()
+        {
+            Console.Clear();
+            PrintHeader("Update Task");
+
+            if (Tasks.Count == 0)
+            {
+                Console.WriteLine("❌ No tasks to edit.");
+                return;
+            }
+
+            for (int i = 0; i < Tasks.Count; i++)
+                Console.WriteLine($"{i + 1}. {Tasks[i]}");
+
+            Console.Write("Enter the task number to update: ");
+            if (!int.TryParse(Console.ReadLine(), out int taskNum) || taskNum < 1 || taskNum > Tasks.Count)
+            {
+                Console.WriteLine("❌ Invalid task number.");
+                return;
+            }
+
+        UpdateState:
+            Console.WriteLine("Choose new state for the task:");
+            Console.WriteLine("1. ✅ Done");
+            Console.WriteLine("2. ⏳ In Progress");
+            Console.WriteLine("3. ❌ Not Started");
+            Console.Write("Enter your choice: ");
+            if (!int.TryParse(Console.ReadLine(), out int stateChoice) || stateChoice < 1 || stateChoice > 3)
+            {
+                Console.WriteLine("❌ Invalid state choice.");
+                goto UpdateState;
+            }
+
+            string newState = stateChoice == 1 ? "✅ Done" :
+                              stateChoice == 2 ? "⏳ In Progress" : "❌ Not Started";
+
+            int percent = 0;
+            if (stateChoice != 3)
+            {
+                Console.Write("Enter Progress Percent: ");
+                if (!int.TryParse(Console.ReadLine(), out percent) || percent < 0 || percent > 100)
+                {
+                    Console.WriteLine("❌ Invalid percent.");
+                    goto UpdateState;
+                }
+
+                Console.Write("Updating: ");
+                Console.ForegroundColor = stateChoice == 1 ? ConsoleColor.Green : ConsoleColor.Yellow;
+                for (int i = 0; i < percent / 10; i++)
+                {
+                    Console.Write("▓");
+                    Thread.Sleep(80);
+                }
+                Console.ResetColor();
+                Console.WriteLine($" {percent}%");
+            }
+
+            string originalTask = Tasks[taskNum - 1].Split('-')[0];
+            Tasks[taskNum - 1] = $"{originalTask} - {newState} - {percent}%";
+            Console.WriteLine("✅ Task updated successfully.");
+        }
+        //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
         private static List<string> Tasks = new List<string>();
         static void Main(string[] args)
         {
@@ -43,129 +160,17 @@ namespace ConsoleApp1
             switch (choice)
             {
                 case 1:
-                ShowTaske:
-                    Console.WriteLine("\nYour Tasks:");
-                    for (int i = 0; i < Tasks.Count; i++)
-                    {
-                        Console.WriteLine($"{i + 1}: {Tasks[i]}");
-                    }
-                    Console.WriteLine("\nPress any key to return to the main menu...");
-                    Console.ReadKey();
-                    Console.Clear();
-                    goto Mainmenu;
+                    { 
+                    ShowTasks();
+                        goto Mainmenu;
+            }
+
                 case 2:
                     {
-                        if (Tasks.Count == 0)
-                        {
-                            Console.WriteLine("No tasks to edit.");
-                            break;
-                        }
-
-                        Console.WriteLine("Current Tasks:");
-                        for (int i = 0; i < Tasks.Count; i++)
-                        {
-                            Console.WriteLine($"{i + 1}. {Tasks[i]}");
-                        }
-
-                        Console.Write("\nEnter the number of the task to update: ");
-                        int TaskNum = int.Parse(Console.ReadLine());
-
-                        if (TaskNum < 1 || TaskNum > Tasks.Count)
-                        {
-                            Console.WriteLine("Invalid task number.");
-                            Console.ReadKey();
-                            Console.Clear();
-                            goto Mainmenu;
-                        }
-
-                    UpdateTaske:
-                        Console.WriteLine("\nChoose new state for the task:");
-                        Console.WriteLine("1. ✅ Done");
-                        Console.WriteLine("2. ⏳ In Progress");
-                        Console.WriteLine("3. ❌ Not Started");
-                        Console.Write("Enter your choice: ");
-                        int stateChoice = int.Parse(Console.ReadLine());
-
-                        string newState = "";
-                        int Percent = 0;
-
-                        switch (stateChoice)
-                        {
-                            case 1:
-                                newState = "✅ Done";
-
-                                Console.Write("Enter Progress Percent: ");
-                                Percent = int.Parse(Console.ReadLine());
-
-                                if (Percent < 1 || Percent > 100)
-                                {
-                                    Console.WriteLine("❌ Invalid percent. Must be between 1 and 100.");
-                                    goto UpdateTaske;
-                                }
-
-                                Console.SetCursorPosition(10, 5);
-                                Console.ForegroundColor = ConsoleColor.Green;
-
-                                for (int i = 0; i < Percent / 10; i++)
-                                {
-                                    Console.Write("█");
-                                    Thread.Sleep(100);
-                                }
-
-                                Console.ResetColor();
-                                Console.WriteLine($"  {Percent}%");
-                                break;
-
-                            case 2:
-                                newState = "⏳ In Progress";
-
-                                Console.Write("Enter Progress Percent: ");
-                                Percent = int.Parse(Console.ReadLine());
-
-                                if (Percent < 1 || Percent >= 100)
-                                {
-                                    Console.WriteLine("❌ Invalid percent. Must be between 1 and 99.");
-                                    goto UpdateTaske;
-                                }
-
-                                Console.SetCursorPosition(10, 5);
-                                Console.ForegroundColor = ConsoleColor.Yellow;
-
-                                for (int i = 0; i < Percent / 10; i++)
-                                {
-                                    Console.Write("█");
-                                    Thread.Sleep(100);
-                                }
-
-                                Console.ResetColor();
-                                Console.WriteLine($"  {Percent}%");
-                                break;
-
-                            case 3:
-                                newState = "❌ Not Started";
-                                Percent = 0;
-                                break;
-
-                            default:
-                                newState = null;
-                                break;
-                        }
-
-                        if (newState == null)
-                        {
-                            Console.WriteLine("Invalid state choice.");
-                            break;
-                        }
-
-                        string originalTask = Tasks[TaskNum - 1].Split('-')[0];
-                        Tasks[TaskNum - 1] = $"{originalTask} - {newState} - {Percent}%";
-
-                        Console.WriteLine("✅ Task updated successfully.");
-                        Console.ReadKey();
-                        Console.Clear();
+                        UpdateTask();
                         goto Mainmenu;
                     }
-
+                break;
                 case 3:
                 addOrRemove:
                     Console.Clear();
@@ -216,6 +221,7 @@ namespace ConsoleApp1
                     break;
                 default:
                     Console.WriteLine("Invalid choice.");
+                    goto Mainmenu;
                     break;
             }
         }
