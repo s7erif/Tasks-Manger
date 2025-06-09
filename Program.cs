@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 namespace ConsoleApp1
 {
     internal class Program
@@ -53,7 +54,6 @@ namespace ConsoleApp1
                     Console.Clear();
                     goto Mainmenu;
                 case 2:
-
                     {
                         if (Tasks.Count == 0)
                         {
@@ -77,6 +77,7 @@ namespace ConsoleApp1
                             Console.Clear();
                             goto Mainmenu;
                         }
+
                     UpdateTaske:
                         Console.WriteLine("\nChoose new state for the task:");
                         Console.WriteLine("1. ✅ Done");
@@ -86,18 +87,65 @@ namespace ConsoleApp1
                         int stateChoice = int.Parse(Console.ReadLine());
 
                         string newState = "";
+                        int Percent = 0;
 
                         switch (stateChoice)
                         {
                             case 1:
                                 newState = "✅ Done";
+
+                                Console.Write("Enter Progress Percent: ");
+                                Percent = int.Parse(Console.ReadLine());
+
+                                if (Percent < 1 || Percent > 100)
+                                {
+                                    Console.WriteLine("❌ Invalid percent. Must be between 1 and 100.");
+                                    goto UpdateTaske;
+                                }
+
+                                Console.SetCursorPosition(10, 5);
+                                Console.ForegroundColor = ConsoleColor.Green;
+
+                                for (int i = 0; i < Percent / 10; i++)
+                                {
+                                    Console.Write("█");
+                                    Thread.Sleep(100);
+                                }
+
+                                Console.ResetColor();
+                                Console.WriteLine($"  {Percent}%");
                                 break;
+
                             case 2:
                                 newState = "⏳ In Progress";
+
+                                Console.Write("Enter Progress Percent: ");
+                                Percent = int.Parse(Console.ReadLine());
+
+                                if (Percent < 1 || Percent >= 100)
+                                {
+                                    Console.WriteLine("❌ Invalid percent. Must be between 1 and 99.");
+                                    goto UpdateTaske;
+                                }
+
+                                Console.SetCursorPosition(10, 5);
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+
+                                for (int i = 0; i < Percent / 10; i++)
+                                {
+                                    Console.Write("█");
+                                    Thread.Sleep(100);
+                                }
+
+                                Console.ResetColor();
+                                Console.WriteLine($"  {Percent}%");
                                 break;
+
                             case 3:
                                 newState = "❌ Not Started";
+                                Percent = 0;
                                 break;
+
                             default:
                                 newState = null;
                                 break;
@@ -109,15 +157,15 @@ namespace ConsoleApp1
                             break;
                         }
 
-
                         string originalTask = Tasks[TaskNum - 1].Split('-')[0];
-                        Tasks[TaskNum - 1] = $"{originalTask} - {newState}";
+                        Tasks[TaskNum - 1] = $"{originalTask} - {newState} - {Percent}%";
 
                         Console.WriteLine("✅ Task updated successfully.");
                         Console.ReadKey();
                         Console.Clear();
                         goto Mainmenu;
                     }
+
                 case 3:
                 addOrRemove:
                     Console.Clear();
