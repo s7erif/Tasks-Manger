@@ -7,6 +7,7 @@ namespace ConsoleApp1
         private static List<string> Tasks = new List<string> ();
         static void Main(string[] args)
         {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.WriteLine("Enter Number of Tasks:");
             int Num = int.Parse(Console.ReadLine());
 
