@@ -4,6 +4,7 @@ namespace ConsoleApp1
 {
     internal class Program
     {
+        private static List<string> Tasks = new List<string> ();
         static void Main(string[] args)
         {
 
