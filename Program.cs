@@ -4,7 +4,7 @@ namespace ConsoleApp1
 {
     internal class Program
     {
-        private static List<string> Tasks = new List<string> ();
+        private static List<string> Tasks = new List<string>();
         static void Main(string[] args)
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
@@ -102,56 +102,57 @@ namespace ConsoleApp1
                         Tasks[TaskNum - 1] = $"{originalTask} - {newState}";
 
                         Console.WriteLine("✅ Task updated successfully.");
-
+                        Console.ReadKey();
+                        goto Mainmenu;
                     }
-                    
+
 
                     break;
-                
+
                 case 3:
                 addOrRemove:
                     Console.Clear();
-                        Console.WriteLine("1. to add task\n2. to remove task ");
-                        string addOrRemoveInput = Console.ReadLine();
-                        int addOrRemove = 0;
-                        int.TryParse(addOrRemoveInput, out addOrRemove);
-                        if (addOrRemove == 1)
-                        {
-                            Console.WriteLine("Enter the task to add:");
-                            string newTask = Console.ReadLine();
-                            Tasks.Add(newTask);
-                            Console.WriteLine("Task added successfully!");
+                    Console.WriteLine("1. to add task\n2. to remove task ");
+                    string addOrRemoveInput = Console.ReadLine();
+                    int addOrRemove = 0;
+                    int.TryParse(addOrRemoveInput, out addOrRemove);
+                    if (addOrRemove == 1)
+                    {
+                        Console.WriteLine("Enter the task to add:");
+                        string newTask = Console.ReadLine();
+                        Tasks.Add(newTask);
+                        Console.WriteLine("Task added successfully!");
                         goto Mainmenu;
-                        }
-                        else if (addOrRemove == 2)
-                        {
-                        Remove:
+                    }
+                    else if (addOrRemove == 2)
+                    {
+                    Remove:
                         Console.Clear();
-                            Console.WriteLine("Your Tasks:");
-                            for (int i = 0; i < Tasks.Count; i++)
-                            {
-                                Console.WriteLine($"{i + 1}: {Tasks[i]}");
+                        Console.WriteLine("Your Tasks:");
+                        for (int i = 0; i < Tasks.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1}: {Tasks[i]}");
                         }
                         Console.WriteLine("\nEnter the task number to remove:");
-                            int removeIndex = int.Parse(Console.ReadLine()) - 1;
-                            if (removeIndex >= 0 && removeIndex < Tasks.Count)
-                            {
-                                Tasks.RemoveAt(removeIndex);
-                                Console.WriteLine("Task removed successfully!");
-                                goto Mainmenu;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Invalid task number.");
-                                goto Remove;
-                            }
+                        int removeIndex = int.Parse(Console.ReadLine()) - 1;
+                        if (removeIndex >= 0 && removeIndex < Tasks.Count)
+                        {
+                            Tasks.RemoveAt(removeIndex);
+                            Console.WriteLine("Task removed successfully!");
+                            goto Mainmenu;
                         }
                         else
                         {
-                            Console.WriteLine("Invalid choice.");
-                            goto addOrRemove;
-
+                            Console.WriteLine("Invalid task number.");
+                            goto Remove;
                         }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid choice.");
+                        goto addOrRemove;
+
+                    }
                 case 4:
                     Console.WriteLine("Exiting...");
                     break;
