@@ -42,7 +42,69 @@ namespace ConsoleApp1
                     Console.Clear();
                     goto Mainmenu;
                 case 2:
-                    // update Method
+
+                    {
+                        if (Tasks.Count == 0)
+                        {
+                            Console.WriteLine("No tasks to edit.");
+                            break;
+                        }
+
+                        Console.WriteLine("Current Tasks:");
+                        for (int i = 0; i < Tasks.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1}. {Tasks[i]}");
+                        }
+
+                        Console.Write("\nEnter the number of the task to update: ");
+                        int TaskNum = int.Parse(Console.ReadLine());
+
+                        if (TaskNum < 1 || TaskNum > Tasks.Count)
+                        {
+                            Console.WriteLine("Invalid task number.");
+                            break;
+                        }
+
+                        Console.WriteLine("\nChoose new state for the task:");
+                        Console.WriteLine("1. ✅ Done");
+                        Console.WriteLine("2. ⏳ In Progress");
+                        Console.WriteLine("3. ❌ Not Started");
+                        Console.Write("Enter your choice: ");
+                        int stateChoice = int.Parse(Console.ReadLine());
+
+                        string newState = "";
+
+                        switch (stateChoice)
+                        {
+                            case 1:
+                                newState = "✅ Done";
+                                break;
+                            case 2:
+                                newState = "⏳ In Progress";
+                                break;
+                            case 3:
+                                newState = "❌ Not Started";
+                                break;
+                            default:
+                                newState = null;
+                                break;
+                        }
+
+                        if (newState == null)
+                        {
+                            Console.WriteLine("Invalid state choice.");
+                            break;
+                        }
+
+
+                        string originalTask = Tasks[TaskNum - 1].Split('-')[0];
+                        Tasks[TaskNum - 1] = $"{originalTask} - {newState}";
+
+                        Console.WriteLine("✅ Task updated successfully.");
+
+                    }
+                    
+
                     break;
                 
                 case 3:
