@@ -6,19 +6,9 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter Number of Tasks:");
-            int Num = int.Parse(Console.ReadLine());
 
-            string[] Tasks = new string[Num];
 
-            Console.WriteLine("Enter Your Tasks:");
-            for (int i = 0; i < Tasks.Length; i++)
-            {
-                Console.Write($"Task {i + 1}: ");
-                Tasks[i] = Console.ReadLine();
-            }
-
-            Console.WriteLine("\nWelcome to Our Task Manager");
+            Console.WriteLine("\nWelcome to Our Task Maneger");
             Console.WriteLine("Main Menu");
             Console.WriteLine("1: Show Your Tasks");
             Console.WriteLine("2: Update Your Task");
@@ -30,34 +20,26 @@ namespace ConsoleApp1
 
             switch (choice)
             {
-                case 1:
-                    Console.WriteLine("\nYour Tasks:");
-                    for (int i = 0; i < Tasks.Length; i++)
-                    {
-                        Console.WriteLine($"{i + 1}: {Tasks[i]}");
-                    }
+        //show Method 
                     break;
                 case 2:
-                    Console.WriteLine("\nEnter the task number to update:");
-                    int updateIndex = int.Parse(Console.ReadLine()) - 1;
 
-                    if (updateIndex >= 0 && updateIndex < Tasks.Length)
                     {
-                        Console.WriteLine("Enter new task description:");
-                        Tasks[updateIndex] = Console.ReadLine();
-                        Console.WriteLine("Task updated successfully!");
+        // update Method 
                     }
-                    else
-                    {
-                        Console.WriteLine("Invalid task number.");
-                    }
+
                     break;
 
-                case 3:
-                    Console.WriteLine("Feature not implemented yet.");
-                    break;
+                case 3:{
+
+       //add Or Delete Method
+
+                }
+                     break;
 
                 case 4:
+
+                    //exite Method
                     Console.WriteLine("Exiting...");
                     break;
 
