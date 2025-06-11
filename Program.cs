@@ -9,8 +9,9 @@ namespace ConsoleApp1
 
         static void Main(string[] args)
         {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-            welcome();
+            //welcome();
             Console.WriteLine("\nWelcome to Our Task Manager");
             Console.Clear();
             Mainmenu();
@@ -22,7 +23,7 @@ namespace ConsoleApp1
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t*****************************************");
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\t\t\t\t\t*****************************************");
             Console.WriteLine("\t\t\t\t\t*                                       *");
             Console.WriteLine("\t\t\t\t\t*  📖✨Hello! Organize your tasks ✨📖  *");
             Console.WriteLine("\t\t\t\t\t*                                       *");
@@ -30,33 +31,61 @@ namespace ConsoleApp1
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("\t\t\t\t\t\tWelcome to the Task Manager!");
             Console.ResetColor();
-            Console.ReadKey();
-            //Console.WriteLine("Please enter the number of tasks you want to manage.");
-            //Console.Write("Number of tasks: ");
-            //int Num = int.Parse(Console.ReadLine());
-            //Console.ResetColor();
-            //Console.WriteLine("Enter Your Tasks:");
-            //for (int i = 0; i < Num; i++)
-            //{
-            //    Console.Write($"Task {i + 1}: ");
-            //    string taskInput = Console.ReadLine();
-            //    Tasks.Add(taskInput);
-            //}
+            Console.WriteLine("\n\n");
+            Console.ForegroundColor = ConsoleColor.Green;
+            int barWidth = 30; // عرض شريط التحميل
+            int consoleWidth = Console.WindowWidth;
+            int centerPosition = (consoleWidth - (barWidth + 2)) / 2; // +2 عشان الأقواس [ ]
+
+            
+            Console.SetCursorPosition(centerPosition, Console.CursorTop);
+            Console.Write("["); // بداية الشريط
+            Console.SetCursorPosition(centerPosition + barWidth + 1, Console.CursorTop);
+            Console.Write("]"); // نهاية الشريط
+
+            // ارجع للمكان بين الأقواس
+            Console.SetCursorPosition(centerPosition + 1, Console.CursorTop);
+
+            for (int i = 0; i < barWidth; i++)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("█");
+                Thread.Sleep(50); // تأخير للتأثير
+            }
+
+            Console.ResetColor();
+
+            // سطر جديد للرسالة
+            Console.WriteLine();
+            Console.SetCursorPosition((consoleWidth - "✅ Done Loading!".Length) / 2, Console.CursorTop);
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("✅ Done Loading!");
+            Console.ResetColor();
+
+            Thread.Sleep(700);
+
         }
         //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         static void Mainmenu()
         {
-            Console.WriteLine("Main Menu");
-            Console.WriteLine("1: Show Your Tasks");
-            Console.WriteLine("2: Update Your Task");
-            Console.WriteLine("3: Add Or Delete Task");
-            Console.WriteLine("4: Exit");
+        Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\n\n\n\n\n\n\t\t\t\t\t        ==================================");
+            Console.WriteLine("\t\t\t\t\t\t||                              ||");
+            Console.WriteLine("\t\t\t\t\t\t||     Main Menu                ||");
+            Console.WriteLine("\t\t\t\t\t\t||     1: Show Your Tasks       ||");
+            Console.WriteLine("\t\t\t\t\t\t||     2: Update Your Task      ||");
+            Console.WriteLine("\t\t\t\t\t\t||     3: Add Or Delete Task    ||");
+            Console.WriteLine("\t\t\t\t\t\t||     4: Exit                  ||");
+            Console.WriteLine("\t\t\t\t\t\t||                              ||");
+            Console.WriteLine("\t\t\t\t\t        ==================================");
+            
             choice();
         }
         //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         static void choice()
         {
             Console.Write("Enter your choice: ");
+            Console.ResetColor();
             int choice = int.Parse(Console.ReadLine());
 
             switch (choice)
@@ -93,7 +122,9 @@ namespace ConsoleApp1
             if (Tasks.Count == 0)
             {
                 Console.WriteLine("❌ No tasks available.");
+                Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine("Press any key to return to main menu...");
+                Console.ResetColor();
                 Console.ReadKey();
                 Console.Clear();
                 Mainmenu();
@@ -113,15 +144,16 @@ namespace ConsoleApp1
                 if (status.Contains("✅")) Console.ForegroundColor = ConsoleColor.Green;
                 else if (status.Contains("⏳")) Console.ForegroundColor = ConsoleColor.Yellow;
                 else Console.ForegroundColor = ConsoleColor.Red;
-
-                Console.WriteLine($"📌 {i + 1}. {title}");
-                Console.WriteLine($"    ├─ Status  : {status}");
-                Console.WriteLine($"    └─ Progress: [{bar}] {percent}%\n");
+                Console.WriteLine("\n");
+                Console.WriteLine($"\t\t\t\t 📌 {i + 1}. {title}");
+                Console.WriteLine($"\t\t\t\t  ├─ Status  : {status}");
+                Console.WriteLine($"\t\t\t\t  └─ Progress: [{bar}] {percent}%\n");
 
                 Console.ResetColor();
             }
-
+            Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.WriteLine("Press any key to return to main menu...");
+            Console.ResetColor();
             Console.ReadKey();
             Console.Clear();
             Mainmenu();
@@ -130,19 +162,26 @@ namespace ConsoleApp1
         static void UpdateTask()
         {
             Console.Clear();
+            Console.WriteLine("\n\n");
             PrintHeader("Update Task");
-
+            Console.WriteLine("\n");
             if (Tasks.Count == 0)
             {
-                Console.WriteLine("❌ No tasks to edit.");
+                Console.WriteLine("\t\t\t\t❌ No tasks to edit.");
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine("\nPress any key to return to main menu...");
+                Console.ResetColor();
+                Console.ReadKey();
                 Console.Clear();
                 Mainmenu();
             }
-
+            Console.ForegroundColor = ConsoleColor.Green;
             for (int i = 0; i < Tasks.Count; i++)
-                Console.WriteLine($"{i + 1}. {Tasks[i]}");
+                Console.WriteLine($"\t\t\t\t{i + 1}. {Tasks[i]}");
+            
 
-            Console.Write("Enter the task number to update: ");
+            Console.Write("\nEnter the task number to update: ");
+            Console.ResetColor();
             if (!int.TryParse(Console.ReadLine(), out int taskNum) || taskNum < 1 || taskNum > Tasks.Count)
             {
                 Console.WriteLine("❌ Invalid task number.");
@@ -210,22 +249,27 @@ namespace ConsoleApp1
         static void PrintHeader(string title)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("\n" + new string('═', 50));
-            Console.WriteLine($"🧠 {title}");
-            Console.WriteLine(new string('═', 50));
+            Console.WriteLine("\n\t\t\t\t" + new string('═', 50));
+            Console.WriteLine($"\t\t\t\t\t\t  🧠 {title}");
+            Console.WriteLine("\t\t\t\t" + new string('═', 50));
             Console.ResetColor();
         }
         //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------               
         static void addOrRemoveTask()
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.Clear();
-            Console.WriteLine("1. to add task\t2. to remove task ");
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\t\t\t\t        =========================================");
+            Console.WriteLine("\t\t\t\t\t||   1. Add task  ||  2. Remove task   ||");
+            Console.WriteLine("\t\t\t\t        =========================================");
+            Console.Write("\nEnter your choice (1 or 2): ");
+            Console.ResetColor();
             string addOrRemoveInput = Console.ReadLine();
             int addOrRemove = 0;
             int.TryParse(addOrRemoveInput, out addOrRemove);
             if (addOrRemove == 1)
             {
-                Console.WriteLine("Enter the task to add:");
+                Console.Write("Enter the task to add:");
                 string newTask = Console.ReadLine();
                 Tasks.Add(newTask);
                 Console.WriteLine("Task added successfully!");
@@ -261,7 +305,9 @@ namespace ConsoleApp1
                             isValidTaskeNum = true;
                             Tasks.RemoveAt(removeIndex);
                             Console.WriteLine("Task removed successfully!");
+                            Console.ForegroundColor = ConsoleColor.DarkGray;
                             Console.WriteLine("Press any key to return to main menu...");
+                            Console.ResetColor();
                             Console.ReadKey();
                             Console.Clear();
                             Mainmenu();
