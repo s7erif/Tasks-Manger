@@ -11,7 +11,7 @@ namespace ConsoleApp1
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-            //welcome();
+            welcome();
             Console.WriteLine("\nWelcome to Our Task Manager");
             Console.Clear();
             Mainmenu();
