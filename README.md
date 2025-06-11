@@ -7,8 +7,6 @@ A simple and interactive Task Manager built using C#. This console-based applica
 - ➕ Add new tasks (with title, deadline, and priority)
 - 📋 View all tasks with:
   - Title
-  - Deadline
-  - Priority (Low, Medium, High)
   - Status (To Do / In Progress / Done)
   - Visual progress bar
 - ✅ Mark tasks as completed
