@@ -54,4 +54,5 @@ A simple and interactive Task Manager built using C#. This console-based applica
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is Not licensed Use it As You Like
+
